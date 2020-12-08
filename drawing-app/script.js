@@ -1,4 +1,3 @@
-const toolBox = document.getElementById('toolbox');
 const canvas = document.getElementById('canvas');
 canvas.width = document.body.clientWidth * 0.9;
 canvas.height = document.body.clientHeight * 0.9;
@@ -8,6 +7,8 @@ const inputColor = document.getElementById('color');
 const sizeSpan = document.getElementById('size');
 const increase = document.getElementById('increase');
 const decrease = document.getElementById('decrease');
+const exportBtn = document.getElementById('export');
+const exportImg = document.getElementById('export-img');
 
 let size = parseInt(sizeSpan.innerText);
 let isPressed = false;
@@ -65,7 +66,7 @@ inputColor.addEventListener('change', (e) => {
 
 clearBtn.addEventListener('click', () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-})
+});
 
 increase.addEventListener('click', () => {
     size += 5;
@@ -80,3 +81,18 @@ decrease.addEventListener('click', () => {
     }
     sizeSpan.innerText = size;
 });
+
+exportBtn.addEventListener('click', () => {
+    exportImg.style.display = 'inline-flex';
+    exportImg.src = canvas.toDataURL('image/png');
+})
+
+exportImg.addEventListener('click', () => {
+    var gh = canvas.toDataURL('png');
+
+    var a = document.createElement('a');
+    a.href = gh;
+    a.download = 'image.png';
+
+    a.click()
+})
