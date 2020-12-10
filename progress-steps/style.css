@@ -13,7 +13,6 @@ body {
     background-color: #f6f7fb;
     font-family: 'Muli', sans-serif;
     display: flex;
-
     align-items: center;
     justify-content: center;
     height: 100vh;
@@ -29,7 +28,6 @@ body {
     display: flex;
     justify-content: space-between;
     position: relative;
-
     margin-bottom: 30px;
     max-width: 100%;
     width: 350px;
@@ -45,9 +43,11 @@ body {
     height: 4px;
     width: 100%;
     z-index: -1;
+    transition: 0.4s ease;
 }
 
-.progress {
+
+#progress-line {
     background-color: var(--line-border-fill);
     position: absolute;
     top: 50%;
@@ -56,36 +56,41 @@ body {
     height: 4px;
     width: 0%;
     z-index: -1;
-    transition: 0.4s
+    transition: 0.4s ease;
 }
 
 .circle {
     background-color: #fff;
-    color: #999;
+    color: var(--line-border-empty);
     border-radius: 50%;
     height: 30px;
     width: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 3px solid var(--line-border-empty);;
+    border: 3px solid var(--line-border-empty);
     transition: 0.4s ease;
 }
 
-.circle.active {
-    border-color: var(--line-border-fill);;
+.circle.active { 
+    border: 3px solid var(--line-border-fill);
+    color: var(--line-border-fill);
 }
 
 .btn {
-    background-color: var(--line-border-fill);
     color: #fff;
+    background-color: var(--line-border-fill);
     border: 0;
-    border-radius: 6px;
-    cursor: pointer;
-    font-family: inherit;
-    padding: 8px 30px;
+    padding: 10px 30px;
     margin: 5px;
+    cursor: pointer;
+    border-radius: 7px;
     font-size: 14px;
+}
+
+.btn:disabled {
+    background-color: var(--line-border-empty);
+    cursor: not-allowed;
 }
 
 .btn:active {
@@ -94,9 +99,4 @@ body {
 
 .btn:focus {
     outline: 0;
-}
-
-.btn:disabled {
-    background-color: var(--line-border-empty);
-    cursor: not-allowed;
 }
