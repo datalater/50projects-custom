@@ -19,6 +19,7 @@ body {
 canvas {
     background-color: #fff;
     border: 2px solid steelblue;
+    cursor: crosshair;
 }
 
 .toolbox {
