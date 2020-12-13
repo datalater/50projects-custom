@@ -16,6 +16,10 @@ let color = 'black';
 let x;
 let y;
 
+document.addEventListener("DOMContentLoaded", () => {
+    drawTouch();
+})
+
 canvas.addEventListener('mousedown', (e) => {
     isPressed = true;
 
@@ -88,11 +92,64 @@ exportBtn.addEventListener('click', () => {
 })
 
 exportImg.addEventListener('click', () => {
-    var gh = canvas.toDataURL('png');
+    let gh = canvas.toDataURL('png');
 
-    var a = document.createElement('a');
+    let a = document.createElement('a');
     a.href = gh;
     a.download = 'image.png';
 
     a.click()
 })
+
+// prototype to	start drawing on mouse using canvas moveTo and lineTo
+const drawMouse = function () {
+    let clicked = 0;
+    let start = function (e) {
+        clicked = 1;
+        ctx.beginPath();
+        x = e.offsetX;
+        y = e.offsetY;
+        ctx.moveTo(x, y);
+    };
+    let move = function (e) {
+        if (clicked) {
+            x = e.offsetX;
+            y = e.offsetY;
+            ctx.lineTo(x, y);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = size * 2;
+            ctx.stroke();
+        }
+    };
+    let stop = function (e) {
+        clicked = 0;
+    };
+    document.getElementById("canvas").addEventListener("mousedown", start, false);
+    document.getElementById("canvas").addEventListener("mousemove", move, false);
+    document.addEventListener("mouseup", stop, false);
+};
+
+// prototype to	start drawing on touch using canvas moveTo and lineTo
+const drawTouch = function () {
+    let x1;
+    let y1;
+
+    let start = function (e) {
+        x1 = e.changedTouches[0].pageX;
+        y1 = e.changedTouches[0].pageY - 44;
+    };
+    let move = (e) => {
+        e.preventDefault();
+        const x2 = e.changedTouches[0].pageX;
+        const y2 = e.changedTouches[0].pageY - 44;
+
+        drawCircle(x2, y2);
+        drawLine(x1, y1, x2, y2);
+
+        x1 = x2;
+        y1 = y2;
+    }
+
+    document.getElementById("canvas").addEventListener("touchstart", start, false);
+    document.getElementById("canvas").addEventListener("touchmove", move, false);
+}; 
